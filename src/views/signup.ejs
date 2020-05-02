@@ -1,0 +1,66 @@
+<%- include ("partials/header.ejs"); %>
+
+<form action="/signup" method="POST">
+
+    <div class="row justify-content-center">
+        <div class="card shadow-sm" style="min-width: 50%;">
+            <div class="card-body">
+                <img class="mb-4" style="display: block; margin-left: auto; margin-right: auto;" width="72" height="72"
+                     src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/person-bouncing-ball_26f9.png">
+                <h5 class="card-title text-center"><a href="/login" style="color: #6c757d;">Sign In</a> / Sign Up</h5>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input required type="text" class="form-control" name="username">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input required type="password" class="form-control" name="password">
+                </div>
+
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input required type="email" class="form-control" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Skill</label>
+                    <select required class="form-control" name="skill">
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advanced</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sports</label>
+                    <select required multiple class="form-control" name="tags">
+                        <option>Soccer</option>
+                        <option>Basketball</option>
+                        <option>Hockey</option>
+                        <option>Badminton</option>
+                        <option>Tennis</option>
+                    </select>
+                    <small class="form-text text-muted">Hold CTRL to select multiple.</small>
+                </div>
+
+                <button type="submit" class="btn btn-success">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<br>
+
+<% if (locals.error_msg) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> <%= error_msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<%- include ("partials/footer.ejs"); %>
