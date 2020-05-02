@@ -1,12 +1,15 @@
 const express = require("express");
-const registerController = require("./register.controller");
+const { check } = require("express-validator");
+const rc = require("./register.controller");
 
 const router = express.Router();
 
-router.get("/", registerController.loginPage);
+router.get("/", rc.auth, rc.homePage);
+router.get("/signup", rc.signupPage);
+router.get("/login", rc.loginPage);
 
-router.post("/user", registerController.create);
-router.get("/users", registerController.findAll);
-router.get("/user/:id", registerController.find);
+router.post("/signup", rc.signup);
+router.post("/login", rc.login);
+router.post("/logout", rc.logout);
 
 module.exports = router;
