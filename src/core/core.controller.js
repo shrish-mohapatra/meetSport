@@ -1,16 +1,14 @@
 const userModel = require("../register/register.model");
 
-exports.dashboard = async (req,res) => {
-    console.log("This is dashboard function");
-    const query = userModel.find();
-    for await(const result of query){
-        console.log(result);
-    }
+exports.homePage = async (req, res) => {
+    const users = await this.getUsers(req);
+    var userData = (await userModel.findOne({"username": req.session.username})).toObject();
+
+    res.render("./home", {userData: userData, users: users});
 }
 
 
-
-exports.getUsers = async (req, res) => {
+exports.getUsers = async (req) => {
     var listUsers = [];
     var person = (await userModel.findOne({"username": req.session.username})).toObject();
     const users = await userModel.find({'address': person.address});
@@ -20,7 +18,7 @@ exports.getUsers = async (req, res) => {
     }
     listUsers = matchRank(listUsers, req, person);
    
-    res.redirect('/');
+    return listUsers;
 
 }
 
@@ -98,10 +96,5 @@ exports.testCreate = (req, res) => {
     res.redirect('/'); 
 }
 
-
-   /* var distance = Math.sqrt(Math.pow(person1.latitude - person2.latitude, 2) + Math.pow(person1.longitude - person2.longitude, 2)); */ //My code... forever. It will never leave
-
-    
    
- 
 

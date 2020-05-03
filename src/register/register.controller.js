@@ -14,9 +14,7 @@ exports.auth = (req, res, next) => {
 exports.loginPage = (req, res) => {res.render("./login");}
 exports.signupPage = (req, res) => {res.render("./signup");}
 
-exports.homePage = (req, res) => {
-    res.render("./home", {username: req.session.username});
-}
+
 
 // post methods
 exports.signup = async (req, res) => {
