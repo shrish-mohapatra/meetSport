@@ -108,26 +108,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" method="POST">
+            <form action="/editProfile" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Username</label>
-                        <input required type="text" class="form-control" name="username">
+                        <input readonly required type="text" class="form-control" name="username" value=<%= userData.username %>>
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input required type="password" class="form-control" name="password">
+                        <input readonly required type="password" class="form-control" name="password" value =<%= userData.password %>>
                     </div>
 
                     <div class="form-group">
                         <label>Email address</label>
-                        <input required type="email" class="form-control" name="email">
+                        <input required type="email" class="form-control" name="email" value = <%= userData.email %>>
                     </div>
 
                     <div class="form-group">
                         <label>Skill</label>
-                        <select required class="form-control" name="skill">
+                        <select required class="form-control" name="skill" value = <%= userData.skill %></select>>
                             <option>Beginner</option>
                             <option>Intermediate</option>
                             <option>Advanced</option>
@@ -136,7 +136,7 @@
 
                     <div class="form-group">
                         <label>Sports</label>
-                        <select required multiple class="form-control" name="tags">
+                        <select required multiple class="form-control" name="tags" value = <%= userData.tags %></select>>
                             <option>Soccer</option>
                             <option>Basketball</option>
                             <option>Hockey</option>
@@ -145,10 +145,15 @@
                         </select>
                         <small class="form-text text-muted">Hold CTRL to select multiple.</small>
                     </div>
+                    <div class="form-group">
+                        <label> Address </label>
+                        <input required type="text" class="form-control" name="address" value = <%= userData.address %>>
+                    </div>
+    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>

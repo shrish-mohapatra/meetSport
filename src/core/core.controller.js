@@ -22,6 +22,26 @@ exports.getUsers = async (req) => {
 
 }
 
+exports.editProfile = async (req, res) => {
+    try{
+        const {username, password, email, skill, address, tags} = req.body;
+        const user = await userModel.findOne({"username": username});
+        user.password = password;
+        user.email = email;
+        user.skill = skill;
+        user.address = address;
+        user.tags = tags;
+        user.save();
+
+        console.log(user);
+        res.redirect("/");
+        
+    } catch(error){
+        console.log(error);
+        res.redirect("/");
+    }
+}
+
 function matchRank(listUsers, req, person){
     var skillIndex = {'beginner': 1, 'intermediate': 2,  'advanced': 3};
     scoreList = [];
