@@ -9,6 +9,7 @@ const session = require("express-session");
 // app routes
 const register_route = require("./src/register/register.route");
 const chat_route = require("./src/chat/chat.route");
+const core_route = require("./src/core/core.route");
 
 const port = config.get("app.port");
 const app = express();
@@ -35,6 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(register_route);
 app.use(chat_route);
+app.use(core_route);
 
 
 app.listen(port, (req, res) => {

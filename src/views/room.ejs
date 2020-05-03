@@ -47,8 +47,10 @@
 
     <script>
         const roomName = "<%= roomName %>"
+        const username = "<%= username %>"
+
     </script>
     <script defer type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script defer type="text/javascript" src="script.js"></script>
+    <script defer type="text/javascript" src="http://localhost:8000/script.js"></script>
 
     <%- include ("partials/footer.ejs"); %>

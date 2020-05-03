@@ -4,7 +4,6 @@ const rc = require("./register.controller");
 
 const router = express.Router();
 
-router.get("/", rc.auth, rc.homePage);
 router.get("/signup", rc.signupPage);
 router.get("/login", rc.loginPage);
 

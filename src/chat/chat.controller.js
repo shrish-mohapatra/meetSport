@@ -9,26 +9,29 @@ exports.roomPage = (req, res) => {
 }
 
 exports.createRoom = (req, res) => {
+    const hashUrl = roomHashKey(req.body.user_you, req.body.user_friend)
+
     //can't create and join duplicate rooms
-    if (rooms[req.body.room] != null){
+    if (rooms[hashUrl] != null){
         console.log('dup room')
-         return res.redirect('/chat')
+         return res.redirect(hashUrl + '/' + req.body.user_you)
          //add popup later
     }
 
-    rooms[req.body.room] = { users: {}} //creates index in room, ties room name to null users to fill
+    rooms[hashUrl] = { users: {}} //creates index in room, ties room name to null users to fill
 
-    res.redirect(req.body.room) //rendered below
+    res.redirect(hashUrl + '/' + req.body.user_you) //rendered below
 
     //Send message new room recreated
-    server.emit('room-created', req.body.room)
+    server.emit('room-created', hashUrl)
 }
 
 exports.chatPage = (req, res) => {
+    console.log('req.params: ' + req.params.username)
     if (rooms[req.params.room] == null) {
       return res.redirect('/')
     }
-    res.render('./room', { roomName: req.params.room }) //room => room name that is passed based on redirect + pass room name in route
+    res.render('./room', { roomName: req.params.room, username: req.params.username}) //room => room name that is passed based on redirect + pass room name in route
   }
 
 
@@ -67,7 +70,7 @@ server.on('connection', socket => {
       if (compare == -1) {
         order.reverse()
     }
-    hashCode(order[0] + order[1])
+    return hashCode(order[0] + order[1])
   }
 
  hashCode = (s) => {

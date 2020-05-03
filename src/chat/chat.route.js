@@ -3,7 +3,7 @@ const router = express.Router();
 const cc = require("./chat.controller");
 
 router.get('/chat', cc.roomPage)
-router.get('/:room', cc.chatPage)
+router.get('/:room/:username', cc.chatPage)
 
 //on create room event, posted to /room
 router.post('/room', cc.createRoom)

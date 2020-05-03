@@ -4,12 +4,12 @@ const messageContainer = document.getElementById('message-container'); //output 
 const messageForm = document.getElementById('send-container'); //the form
 const messageInput = document.getElementById('message-input'); //input
 
-//name handler
+//make sure in room page
 if(messageForm != null){
-    const name = prompt('what is your name?')
-    appendMessage('You joined the chat')
+    const name = username
     socket.emit('new-user', roomName, name)
-
+    appendMessage('You joined the chat')
+    
     messageForm.addEventListener('submit', e=> {
         e.preventDefault(); //prevent page refresh to keep msgs
         const message = messageInput.value
@@ -18,6 +18,8 @@ if(messageForm != null){
         messageInput.value = ''
     })
 }
+
+
 
 //creates room + link to join
 socket.on('room-created', room => {
