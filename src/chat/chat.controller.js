@@ -56,9 +56,28 @@ server.on('connection', socket => {
   function getUserRooms(socket) {
       return Object.entries(rooms).reduce((names, [name, room]) => {
         if (room.users[socket.id] != null) names.push(name)
+        roomHashKey('michael', 'shrish')
         return names //which room user with socket if is a part of
       }, [])
   }
+
+  roomHashKey = (user1, user2) => {
+      let compare = user1.localeCompare(user2)
+      let order = [user1, user2]
+      if (compare == -1) {
+        order.reverse()
+    }
+    hashCode(order[0] + order[1])
+  }
+
+ hashCode = (s) => {
+    var h = 0, l = s.length, i = 0;
+    if ( l > 0 )
+      while (i < l)
+        h = (h << 5) - h + s.charCodeAt(i++) | 0;
+        console.log(h)
+    return h;
+  };
 
   // //middleware
 // const logger = (req, res, next) => {
