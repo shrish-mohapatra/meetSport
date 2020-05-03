@@ -8,16 +8,41 @@ exports.dashboard = async (req,res) => {
     }
 }
 
-var matchCounter = 0;
-exports.match = async (req, res) => {
-    //const person1 = userModel.find({"username": req.session.username});
-    const person = (await userModel.findOne({"username": "Michael"})).toObject();
-    const users = await userModel.find({'address': person1.address});
+
+
+exports.getUsers = async (req, res) => {
+    var listUsers = [];
+    var person = (await userModel.findOne({"username": req.session.username})).toObject();
+    const users = await userModel.find({'address': person.address});
+
+    for await(const result of users){
+        listUsers.push(result);
+    }
+    listUsers = matchRank(listUsers, req, person);
+   
     res.redirect('/');
 
-    
-
 }
+
+function matchRank(listUsers, req, person){
+    var skillIndex = {'beginner': 1, 'intermediate': 2,  'advanced': 3};
+    scoreList = [];
+
+
+    for(i = 0; i <listUsers.length; i++){
+        var score = 0;
+
+        if (listUsers[i].username != person.username){
+
+            score = Math.abs(skillIndex[person.skill]- skillIndex[listUsers[i].skill]) - (person.tags.filter(x => listUsers[i].tags.includes(x))).length;
+
+            scoreList.push({user: listUsers[i], score: score});
+        }
+    }
+    scoreList.sort((a,b) => (a.score > b.score) ? 1 : -1);
+    return scoreList;
+}  
+
 
 exports.testCreate = (req, res) => {
     const person = userModel({
