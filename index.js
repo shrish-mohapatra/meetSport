@@ -29,7 +29,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(express.static('src/chat')) //folder for js
+app.use(express.static('src/chat')) //folder for js and css
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))

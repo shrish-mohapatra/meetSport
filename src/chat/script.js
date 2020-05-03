@@ -1,7 +1,7 @@
 const socket = io('http://localhost:3000');
-const roomContainer = document.getElementById('room-container'); //output msg
+const roomContainer = document.getElementById('room-container'); //output rooms
 const messageContainer = document.getElementById('message-container'); //output msg
-const messageForm = document.getElementById('send-container'); //output page
+const messageForm = document.getElementById('send-container'); //the form
 const messageInput = document.getElementById('message-input'); //input
 
 //name handler
@@ -19,15 +19,17 @@ if(messageForm != null){
     })
 }
 
+//creates room + link to join
 socket.on('room-created', room => {
     const roomElement = document.createElement('div')
     roomElement.innerText = room
     const roomLink = document.createElement('a')
     roomLink.href = `/${room}`
-    roomLink.innerText = 'join'
+    roomLink.innerText = 'Join'
     roomContainer.append(roomElement)
     roomContainer.append(roomLink)
 })
+
 socket.on('chat-message', data =>{
     console.log(data);
     appendMessage(`${data.name}: ${data.message}`);
@@ -43,6 +45,7 @@ socket.on('user-disconnected', name =>{
     appendMessage(`${name} disconnected`);
 })
 
+//adds msgs
 function appendMessage(message) {
     const messageElement = document.createElement('div') //create message container element
     messageElement.innerText = message
