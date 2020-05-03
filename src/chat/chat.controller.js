@@ -9,18 +9,19 @@ exports.roomPage = (req, res) => {
 }
 
 exports.createRoom = (req, res) => {
-    const hashUrl = roomHashKey(req.body.user_you, req.body.user_friend)
+    const hashUrl = roomHashKey(req.session.username, req.params.friendName)
+    console.log(req.session.username, req.params.friendName)
 
     //can't create and join duplicate rooms
     if (rooms[hashUrl] != null){
         console.log('dup room')
-         return res.redirect(hashUrl + '/' + req.body.user_you)
+         return res.redirect(hashUrl + '/' + req.session.username)
          //add popup later
     }
 
     rooms[hashUrl] = { users: {}} //creates index in room, ties room name to null users to fill
 
-    res.redirect(hashUrl + '/' + req.body.user_you) //rendered below
+    res.redirect(hashUrl + '/' + req.session.username) //rendered below
 
     //Send message new room recreated
     server.emit('room-created', hashUrl)

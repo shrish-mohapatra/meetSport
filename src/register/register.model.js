@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    friends : {
+        type: Array,
+    },
     
 });
 const register = mongoose.model('user', userSchema, "register");

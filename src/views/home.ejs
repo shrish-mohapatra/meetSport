@@ -13,26 +13,19 @@
         <div class="col-md-6 px-0" style="margin: auto;">
             <table class="table table-borderless table-hover table-dark">
                 <tbody>
-                <tr>
-                    <th scope="row">Michael</th>
-                    <td>Advanced</td>
-                    <td>Basketball</td>
-                    <td><a href="#" class="badge badge-primary badge-pill text-primary">_</a></td>
-                </tr>
 
-                <tr>
-                    <th scope="row">Shrish</th>
-                    <td>Beginner</td>
-                    <td>Basketball, Soccer</td>
-                    <td><a href="#" class="badge badge-primary badge-pill text-primary">_</a></td>
-                </tr>
+                <% friends.forEach(friend => {%> 
+                    <tr>
+                        <td><%= friend.username %></td>
+                        <td><%= friend.skill %></td>
+                        <td><%= friend.tags %></td>
+                        <td><form action="/createchat/<%= friend.username %>" method="POST">
+                            <button type="submit" class="badge badge-primary badge-pill text-primary">_</button>
+                        </form>
+                        </td>
+                    </tr>
+                    <% }) %>
 
-                <tr>
-                    <th scope="row">Yousef</th>
-                    <td>Intermediate</td>
-                    <td>Soccer</td>
-                    <td><a href="#" class="badge badge-primary badge-pill text-primary">_</a></td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -61,7 +54,10 @@
                         <td><%= obj.user.username %></td>
                         <td><%= obj.user.skill %></td>
                         <td><%= obj.user.tags %></td>
-                        <td><a href="#" class="badge badge-success badge-pill text-success">_</a></td>
+                        <td><form action="/addFriend/<%= obj.user.username %>" method="POST">
+                            <button type="submit" class="badge badge-success badge-pill text-success">_</button>
+                        </form>
+                        </td>
                     </tr>
                     <% }) %>
                     </tbody>

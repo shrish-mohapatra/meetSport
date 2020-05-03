@@ -4,7 +4,18 @@ exports.homePage = async (req, res) => {
     const users = await this.getUsers(req);
     var userData = (await userModel.findOne({"username": req.session.username})).toObject();
 
-    res.render("./home", {userData: userData, users: users});
+    const friends = await this.getFriendObj(userData)
+
+    res.render("./home", {userData: userData, users: users, friends: friends });
+}
+
+exports.getFriendObj = async (userData) => {
+    const friends = []
+    for await (const friendName of userData.friends){
+        friends.push(await userModel.findOne({"username": friendName}))
+    }
+
+    return friends
 }
 
 
@@ -14,7 +25,9 @@ exports.getUsers = async (req) => {
     const users = await userModel.find({'address': person.address});
 
     for await(const result of users){
-        listUsers.push(result);
+        if (!person.friends.includes(result.username)) {
+            listUsers.push(result);
+        }
     }
     listUsers = matchRank(listUsers, req, person);
    
@@ -61,6 +74,23 @@ function matchRank(listUsers, req, person){
     return scoreList;
 }  
 
+exports.addFriend = async (req, res) => {
+    // console.log(req.params.friendName)
+    // res.redirect('/')
+    try{
+    const currentUser = await userModel.findOne({"username": req.session.username});
+    const friend = await userModel.findOne({"username": req.params.friendName});
+
+    currentUser.friends.push(friend.username)
+    friend.friends.push(currentUser.username)
+
+    currentUser.save()
+    friend.save()
+    } catch(error) {
+        console.log(error)
+    }
+    res.redirect('/')
+}
 
 exports.testCreate = (req, res) => {
     const person = userModel({
@@ -69,7 +99,8 @@ exports.testCreate = (req, res) => {
         email:"test1@gmail.com",
         skill: "advanced",
         tags: ['Hockey'],
-        address: "Ottawa, Canada"
+        address: "Ottawa, Canada",
+        friends: []
         
     });
     const person1 = userModel({
@@ -78,7 +109,8 @@ exports.testCreate = (req, res) => {
         email:"test2@gmail.com",
         skill: "beginner",
         tags: ['Basketball','Hockey'],
-        address: "Vancouver, Canada"
+        address: "Vancouver, Canada",
+        friends: []
         
     });
     const person2 = userModel({
@@ -87,7 +119,8 @@ exports.testCreate = (req, res) => {
         email:"test3@gmail.com",
         skill: "intermediate",
         tags: ['Tennis', 'football'],
-        address: "Winnipeg, Canada"
+        address: "Winnipeg, Canada",
+        friends: []
         
     });
     const person3 = userModel({
@@ -96,7 +129,8 @@ exports.testCreate = (req, res) => {
         email:"test4@gmail.com",
         skill: "advanced",
         tags: ['Basketball','Hockey'],
-        address: "Toronto, Canada"
+        address: "Toronto, Canada",
+        friends: []
         
     });
     const person4 = userModel({
@@ -105,9 +139,12 @@ exports.testCreate = (req, res) => {
         email:"test5@gmail.com",
         skill: "beginner",
         tags: ['Tennis','Hockey'],
-        address: "Winnipeg, Canada"
+        address: "Winnipeg, Canada",
+        friends: []
         
     });
+
+
     person.save();
     person1.save();
     person2.save();
