@@ -21,7 +21,11 @@ const userSchema = mongoose.Schema({
     tags : {
         type: Array,
     },
+    address : {
+        type: String,
+        required: true
+    },
+    
 });
-
 const register = mongoose.model('user', userSchema, "register");
 module.exports = register;
