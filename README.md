@@ -1,6 +1,8 @@
 # meetSport
 > **MeetSport** is an online networking application for pickup sport games that allows users to find and connect with other profiles based on their local proximity, skill level, and sports interests. Developed by **Michael Kagnew**, **Shrish Mohapatra**, and **Sundar Vengadeswaran**, and **Yousef Yassin** using the **Node.js** framework. Key features include an authentication system using MongoDB Atlas, a realtime chat system using Socket.io, and an optimized matchmaking algorithm that suggests friends based on profile details.
 
+![alt text](https://i.imgur.com/lzhScNS.png "Dashboard")
+
 ## Running Project
 You will first need to clone the repository to your local machine:
 ```
