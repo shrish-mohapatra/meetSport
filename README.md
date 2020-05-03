@@ -27,3 +27,5 @@ Go to your browser and type the following: **127.0.0.1:8000**
 * Connect with other users (filtered by your location) found in the **Find Users** section
 * Chat with friends, people you've already connected with, at the top section
 * Logout when you are finished
+
+**NOTE: You should use 'Toronto' as your location so you can see other profile.**
