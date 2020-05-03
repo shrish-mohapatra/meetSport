@@ -19,7 +19,10 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/">Home</a>
         <a class="p-2 text-dark" href="/about">About</a>
-        <a class="p-2 text-dark" href="/login">Login</a>
+
+        <% if (!locals.username) { %>
+            <a class="p-2 text-dark" href="/login">Login</a>
+        <% } %>
     </nav>
 </div>
 
