@@ -39,11 +39,22 @@
 </style> -->
     <link type="text/css" ref="../chat/style.css">
     
-    <div id="message-container"></div>
-    <form id="send-container">
-        <input type="text" id="message-input" placeholder="Type a msg...">
-        <button type="submit" id="send-button" class="button">Send</button>
-    </form>
+        <div id="message-container" class = "overflow-auto" style = "height: calc(100vh - 350px); overflow-y: auto;"></div>
+        <span style="display:block;">
+        <footer class = "footer" >
+            <form id="send-container" style="padding-top: 50px;" >
+                <div class="input-group mb-3">
+
+                    <input type="text" class = "form-control" id="message-input" placeholder="Type a msg..." >
+                    <div class="input-group-append">
+                        <button type="submit" id="send-button" class="btn btn-primary">Send</button>
+                    </div>
+                </div>     
+            </form>
+        </footer>
+        </span>
+   
+    
 
     <script>
         const roomName = "<%= roomName %>"
