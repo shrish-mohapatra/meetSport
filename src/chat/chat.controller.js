@@ -1,7 +1,7 @@
 const io = require("socket.io");
 const server = io.listen(3000) //creates chat server on port 3k
 
-const rooms = {}
+const rooms = {} //holds rooms
 
 
 exports.roomPage = (req, res) => {
