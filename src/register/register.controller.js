@@ -14,8 +14,6 @@ exports.auth = (req, res, next) => {
 exports.loginPage = (req, res) => {res.render("./login");}
 exports.signupPage = (req, res) => {res.render("./signup");}
 
-
-
 // post methods
 exports.signup = async (req, res) => {
     try {

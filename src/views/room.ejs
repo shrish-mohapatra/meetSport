@@ -1,67 +1,27 @@
 <%- include ("partials/header.ejs"); %>
 
-    
-<!-- <style>
-        body {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        }
+<link type="text/css" ref="../chat/style.css">
 
-        #message-container {
-        width: 80%;
-        max-width: 1200px;
-        }
+    <ul id="message-container" class= "list-unstyled overflow-auto" style ="height: calc(100vh - 350px); overflow-y: auto;"></ul>
 
-        #message-container div {
-        background-color: #CCC;
-        padding: 5px;
-        }
+    <footer class = "footer" >
+        <form id="send-container" style="padding-top: 20px;" >
+            <div class="input-group mb-3">
 
-        #message-container div:nth-child(2n) {
-        background-color: #FFF;
-        }
+                <input type="text" class = "form-control" id="message-input" placeholder="Type a msg..." >
+                <div class="input-group-append">
+                    <button type="submit" id="send-button" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </footer>
 
-        #send-container {
-        position: fixed;
-        padding-bottom: 30px;
-        bottom: 0;
-        background-color: white;
-        max-width: 1200px;
-        width: 80%;
-        display: flex;
-        }
+<script>
+    const roomName = "<%= roomName %>"
+    const username = "<%= username %>"
+</script>
 
-        #message-input {
-        flex-grow: 1;
-        }
-</style> -->
-    <link type="text/css" ref="../chat/style.css">
-    
-        <div id="message-container" class = "overflow-auto" style = "height: calc(100vh - 350px); overflow-y: auto;"></div>
-        <span style="display:block;">
-        <footer class = "footer" >
-            <form id="send-container" style="padding-top: 50px;" >
-                <div class="input-group mb-3">
+<script defer type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script defer type="text/javascript" src="http://localhost:8000/script.js"></script>
 
-                    <input type="text" class = "form-control" id="message-input" placeholder="Type a msg..." >
-                    <div class="input-group-append">
-                        <button type="submit" id="send-button" class="btn btn-primary">Send</button>
-                    </div>
-                </div>     
-            </form>
-        </footer>
-        </span>
-   
-    
-
-    <script>
-        const roomName = "<%= roomName %>"
-        const username = "<%= username %>"
-
-    </script>
-    <script defer type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script defer type="text/javascript" src="http://localhost:8000/script.js"></script>
-
-    <%- include ("partials/footer.ejs"); %>
+<%- include ("partials/footer.ejs"); %>

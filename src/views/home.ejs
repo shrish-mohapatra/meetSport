@@ -19,10 +19,7 @@
                         <td><%= friend.username %></td>
                         <td><%= friend.skill %></td>
                         <td><%= friend.tags %></td>
-                        <td><form action="/createchat/<%= friend.username %>" method="POST">
-                            <button type="submit" class="badge badge-primary badge-pill text-primary">_</button>
-                        </form>
-                        </td>
+                        <td><a href="/createchat/<%= friend.username %>" class="badge badge-primary badge-pill text-primary">_</a></td>
                     </tr>
                     <% }) %>
 
@@ -34,7 +31,7 @@
 
 <div class="row mb-2">
     <! Find Users ->
-    <div class="col-md-6 d-flex">
+    <div class="col-md-8 d-flex">
         <div class="flex-fill row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
                 <font color="#343a40"><h3 class="mb-2">Find Users</h3></font>
@@ -54,10 +51,7 @@
                         <td><%= obj.user.username %></td>
                         <td><%= obj.user.skill %></td>
                         <td><%= obj.user.tags %></td>
-                        <td><form action="/addFriend/<%= obj.user.username %>" method="POST">
-                            <button type="submit" class="badge badge-success badge-pill text-success">_</button>
-                        </form>
-                        </td>
+                        <td><a href="/addFriend/<%= obj.user.username %>" class="badge badge-success badge-pill text-success">_</a></td>
                     </tr>
                     <% }) %>
                     </tbody>
@@ -67,7 +61,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 ">
+    <div class="col-md-4 ">
         <! Edit Profile ->
         <div class="col-md-12">
             <div class="flex-fill row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -143,13 +137,13 @@
                     </div>
                     <div class="form-group">
                         <label> Address </label>
-                        <input required type="text" class="form-control" name="address" value = <%= userData.address %>>
+                        <input required type="text" class="form-control" name="address" value = "<%= userData.address %>">
                     </div>
     
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
                 </div>
             </form>
         </div>

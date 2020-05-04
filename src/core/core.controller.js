@@ -18,8 +18,24 @@ exports.getFriendObj = async (userData) => {
     return friends
 }
 
+exports.addFriend = async (req, res) => {
+    try{
+        const currentUser = await userModel.findOne({"username": req.session.username});
+        const friend = await userModel.findOne({"username": req.params.friendName});
+
+        currentUser.friends.push(friend.username)
+        friend.friends.push(currentUser.username)
+
+        currentUser.save()
+        friend.save()
+    } catch(error) {
+        console.log(error)
+    }
+    res.redirect('/')
+}
 
 exports.getUsers = async (req) => {
+    // returns list of users sorted by how well they match the current user
     var listUsers = [];
     var person = (await userModel.findOne({"username": req.session.username})).toObject();
     const users = await userModel.find({'address': person.address});
@@ -39,20 +55,16 @@ exports.editProfile = async (req, res) => {
     try{
         const {username, password, email, skill, address, tags} = req.body;
         const user = await userModel.findOne({"username": username});
-        user.password = password;
         user.email = email;
         user.skill = skill;
         user.address = address;
         user.tags = tags;
         user.save();
-
-        console.log(user);
-        res.redirect("/");
-        
     } catch(error){
         console.log(error);
-        res.redirect("/");
     }
+
+    res.redirect("/");
 }
 
 function matchRank(listUsers, req, person){
@@ -72,24 +84,6 @@ function matchRank(listUsers, req, person){
     }
     scoreList.sort((a,b) => (a.score > b.score) ? 1 : -1);
     return scoreList;
-}  
-
-exports.addFriend = async (req, res) => {
-    // console.log(req.params.friendName)
-    // res.redirect('/')
-    try{
-    const currentUser = await userModel.findOne({"username": req.session.username});
-    const friend = await userModel.findOne({"username": req.params.friendName});
-
-    currentUser.friends.push(friend.username)
-    friend.friends.push(currentUser.username)
-
-    currentUser.save()
-    friend.save()
-    } catch(error) {
-        console.log(error)
-    }
-    res.redirect('/')
 }
 
 exports.testCreate = (req, res) => {
@@ -152,6 +146,3 @@ exports.testCreate = (req, res) => {
     person4.save();
     res.redirect('/'); 
 }
-
-   
-

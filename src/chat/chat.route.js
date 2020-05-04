@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const cc = require("./chat.controller");
+const controller = require("./chat.controller");
 
-router.get('/chat', cc.roomPage)
-router.get('/createchat/:room/:username', cc.chatPage)
+router.get('/chat', controller.roomPage)
+router.get('/createchat/:room/:username', controller.chatPage)
 
-//on create room event, posted to /room
-router.post('/createchat/:friendName', cc.createRoom)
-
-// server.listen(3000)
+router.get('/createchat/:friendName', controller.createRoom)
 
 module.exports = router;

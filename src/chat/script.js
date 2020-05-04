@@ -19,8 +19,6 @@ if(messageForm != null){
     })
 }
 
-
-
 //creates room + link to join
 socket.on('room-created', room => {
     const roomElement = document.createElement('div')
@@ -33,23 +31,26 @@ socket.on('room-created', room => {
 })
 
 socket.on('chat-message', data =>{
-    console.log(data);
     appendMessage(`${data.name}: ${data.message}`);
 })
 
 socket.on('user-connected', name =>{
-    console.log(name);
     appendMessage(`${name} connected`);
 })
 
 socket.on('user-disconnected', name =>{
-    console.log(name);
     appendMessage(`${name} disconnected`);
 })
 
 //adds msgs
 function appendMessage(message) {
-    const messageElement = document.createElement('div') //create message container element
+    const messageElement = document.createElement('li') //create message container element
     messageElement.innerText = message
+    messageElement.style.float = "left"
+
+    const br = document.createElement('br')
+
     messageContainer.append(messageElement)
+    messageContainer.append(br)
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 }
