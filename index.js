@@ -31,13 +31,12 @@ app.use(session({
 }));
 
 app.use(express.static('src/chat')) //folder for js and css
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(register_route);
 app.use(chat_route);
 app.use(core_route);
-
 
 app.listen(port, (req, res) => {
     console.log("Running server on localhost:" + port);
